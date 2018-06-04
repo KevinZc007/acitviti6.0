@@ -80,8 +80,8 @@
 				<profiles.active>local</profiles.active>
 				<datasource.url>jdbc:sqlserver://localhost:1433;databaseName=activiti</datasource.url>
 				<datasource.driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</datasource.driver>
-				<datasource.username>sa</datasource.username>
-				<datasource.password>123456</datasource.password>
+				<datasource.username>username</datasource.username>
+				<datasource.password>password</datasource.password>
 				<datasource.platform>org.hibernate.dialect.SQLServer2012Dialect</datasource.platform>
 				<server.port>8080</server.port>
 			</properties>
@@ -92,8 +92,8 @@
 				<showsql>true</showsql>
 				<datasource.url>jdbc:mysql://127.0.0.1:3306/activiti?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true</datasource.url>
 				<datasource.driver>com.mysql.jdbc.Driver</datasource.driver>
-				<datasource.username>root</datasource.username>
-				<datasource.password>root</datasource.password>
+				<datasource.username>username</datasource.username>
+				<datasource.password>password</datasource.password>
 				<datasource.platform>org.hibernate.dialect.MySQL57Dialect</datasource.platform>
 				<server.port>8080</server.port>
 			</properties>

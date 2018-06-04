@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>pers.zc</groupId>
+	<artifactId>activiti6.0</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>activiti6.0</name>
+	<description>Demo project for Spring Boot</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.0.2.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		
+		<dependency>  
+            <groupId>org.activiti</groupId>  
+            <artifactId>activiti-engine</artifactId>  
+            <version>6.0.0</version>  
+        </dependency>
+
+		<dependency>  
+            <groupId>org.springframework.boot</groupId>  
+            <artifactId>spring-boot-starter-data-jpa</artifactId>  
+        </dependency>
+        
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+	<profiles>
+		<!-- sqlserver数据库 -->
+		<profile>
+			<id>sqlserver@local</id>
+			<properties>
+				<showsql>true</showsql>
+				<profiles.active>local</profiles.active>
+				<datasource.url>jdbc:sqlserver://localhost:1433;databaseName=activiti</datasource.url>
+				<datasource.driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</datasource.driver>
+				<datasource.username>sa</datasource.username>
+				<datasource.password>123456</datasource.password>
+				<datasource.platform>org.hibernate.dialect.SQLServer2012Dialect</datasource.platform>
+				<server.port>8080</server.port>
+			</properties>
+		</profile>
+		<profile>
+			<id>mysql@local</id>
+			<properties>
+				<showsql>true</showsql>
+				<datasource.url>jdbc:mysql://127.0.0.1:3306/activiti?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true</datasource.url>
+				<datasource.driver>com.mysql.jdbc.Driver</datasource.driver>
+				<datasource.username>root</datasource.username>
+				<datasource.password>root</datasource.password>
+				<datasource.platform>org.hibernate.dialect.MySQL57Dialect</datasource.platform>
+				<server.port>8080</server.port>
+			</properties>
+		</profile>
+	</profiles>
+
+</project>

@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: '@datasource.url@'
+    username: '@datasource.username@'
+    driver-class-name: '@datasource.driver@'
+    password: '@datasource.password@'
+    tomcat:
+      max-active: 1000
+      max-idle: 1000

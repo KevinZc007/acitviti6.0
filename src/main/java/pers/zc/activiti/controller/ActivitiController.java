@@ -143,4 +143,45 @@ public class ActivitiController {
         }
 		
 	}
+	
+	@RequestMapping("exclusiveGateway")  
+	public void exclusiveGateway() {  
+		
+		//根据bpmn文件部署流程  
+		repositoryService.createDeployment().addClasspathResource("exclusiveGateway.bpmn").deploy();
+		// 设置User Task1受理人变量
+		Map<String, Object> variables = new HashMap<>();
+		variables.put("user1", "007");
+		//采用key来启动流程定义并设置流程变量，返回流程实例  
+		ProcessInstance pi = runtimeService.startProcessInstanceByKey("exclusiveGatewayAndTimerBoundaryEventProcess", variables);  
+		String processId = pi.getId();  
+		System.out.println("流程创建成功，当前流程实例ID："+processId);
+		
+		// 注意 这里需要拿007来查询，key-value需要拿value来获取任务
+		List<Task> list = taskService.createTaskQuery().taskAssignee("007").list();
+		Map<String, Object> variables1 = new HashMap<>();
+		variables1.put("user2", "lili"); // 设置User Task2的受理人变量
+		variables1.put("operate", ""); // 设置用户的操作 为空 表示走flow3的默认路线
+		taskService.complete(list.get(0).getId(), variables1);
+		System.out.println("User Task1被完成了，此时流程已流转到User Task2");
+		
+		List<Task> list1 = taskService.createTaskQuery().taskAssignee("lili").list();
+		Map<String, Object> variables2 = new HashMap<>();
+		variables2.put("user4", "bobo");
+		variables2.put("startTime", "2018-6-11T14:22:00"); // 设置定时边界任务的触发时间 注意：后面的时间必须是ISO 8601时间格式的字符串！！！
+		taskService.complete(list1.get(0).getId(), variables2);
+		
+		List<Task> list2 = taskService.createTaskQuery().taskAssignee("bobo").list();
+		if(list2!=null && list2.size()>0){ 
+            for(org.activiti.engine.task.Task task:list2){  
+                System.out.println("任务ID："+task.getId());  
+                System.out.println("任务的办理人："+task.getAssignee());  
+                System.out.println("任务名称："+task.getName());  
+                System.out.println("任务的创建时间："+task.getCreateTime());  
+                System.out.println("流程实例ID："+task.getProcessInstanceId());  
+                System.out.println("#######################################");
+            }
+        }
+	}
+	
 }
